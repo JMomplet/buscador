@@ -157,4 +157,20 @@ class Solr
         return $this->host . '/solr/' . $this->core . $this->reqHandler .
         '?wt=' . $this->format;
     }
+
+    protected function dataImport($fullImport = false)
+    {
+        $url = $this->host . '/solr/dataimport';
+        if ($fullImport)
+            $url .= "?command=full-import";
+        else
+            $url .= "?command=delta-import";
+
+        $curl = curl_init($url);
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+        ));
+        curl_exec($curl);
+        curl_close($curl);
+    }
 }

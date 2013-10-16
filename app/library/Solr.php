@@ -88,7 +88,7 @@ class Solr
                     $query = str_replace(' ', ' AND ', $query);
                     break;
                 case 'all':
-                    $query = '(' . $query . ')';
+                    $query = str_replace(' ', ' OR ', $query);
                     break;
             }
         }
@@ -158,9 +158,12 @@ class Solr
         '?wt=' . $this->format;
     }
 
-    protected function dataImport($fullImport = false)
+    /**
+     * @param bool $fullImport
+     */
+    public function dataImport($fullImport = false)
     {
-        $url = $this->host . '/solr/dataimport';
+        $url = $this->host . '/solr/' . $this->core . '/dataimport';
         if ($fullImport)
             $url .= "?command=full-import";
         else

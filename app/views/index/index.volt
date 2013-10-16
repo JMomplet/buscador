@@ -14,10 +14,10 @@
                 {# Comprobamos cual de los 2 es el local #}
                 {% if partido.local_id == equipo1.id %}
                     <li>{{ equipo1.nombre }} {{ partido.goles_local }}
-                        - {{ partido.goles_visitante }} {{ equipo2.nombre }}</li>
+                        - {{ partido.goles_visitante }} {{ equipo2.nombre }} ({{ partido.semana }})</li>
                 {% else %}
                     <li>{{ equipo2.nombre }} {{ partido.goles_local }}
-                        - {{ partido.goles_visitante }} {{ equipo1.nombre }}</li>
+                        - {{ partido.goles_visitante }} {{ equipo1.nombre }} ({{ partido.semana }})</li>
                 {% endif %}
             {% endfor %}
         {% endif %}

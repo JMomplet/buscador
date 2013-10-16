@@ -22,4 +22,4 @@ Una vez iniciado podremos acceder al gestor web desde http://localhost:8983/solr
 
 Generar partidos
 ----------------
-La base de datos viene con datos de partidos para las 2 ligas incluidas, pero para generar (y sustituir) todos los partidos de la temporada habrá que acceder a la url <host>/generarpartidos?liga=1 (siendo 1 la española y 2 la inglesa)
+La base de datos viene con datos de partidos para las 2 ligas incluidas, pero para generar (y sustituir) todos los partidos de la temporada habrá que acceder a /generarpartidos?liga=1 (siendo 1 la española y 2 la inglesa)

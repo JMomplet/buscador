@@ -6,16 +6,19 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
     {
         $liga = $this->request->get('liga');
 
+        //Accedemos a los equipos de la liga recibida por GET
         $equipos = Equipo::find(array(
             "liga_id = '" . $liga . "'",
             "order" => "id"
         ));
 
-        foreach ($equipos as $equipo) {
-            $equipo->partido->delete();
-        }
-
         if ($equipos) {
+            //Eliminamos de la base de datos los partidos jugados por esos equipos
+            foreach ($equipos as $equipo) {
+                $equipo->partido->delete();
+            }
+
+            //Guardamos en variables los valores necesarios en la asignación de partidos
             $id_inicial = $equipos[0]->id;
             $num_equipos = count($equipos);
             $num_semanas = 20;
@@ -23,6 +26,7 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
             $partidos_semana = (int)($num_equipos / 2);
             $incremento = $id_inicial - 1;
 
+            //Asignamos los partidos
             for ($semana = 1; $semana <= $num_semanas; $semana++) {
                 for ($partido = 1; $partido <= $partidos_semana; $partido++) {
 
@@ -41,6 +45,7 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
                             $visitante_id += 10;
                     }
 
+                    //Guardamos en la base de datos el partido
                     $obj = new Partido();
                     $obj->local_id = $local_id;
                     $obj->goles_local = rand(0, 5);
@@ -50,6 +55,8 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
                     $obj->save();
                 }
             }
+
+            //Tras haber asignado todos los partidos, pasamos a actualizar los datos en Solr
             $solr = new Solr('partidos');
             $solr->dataImport(true);
         }

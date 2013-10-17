@@ -64,7 +64,7 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
 
             echo '<h1>Partidos generados</h1>';
         } else {
-            echo '<h1>No se ha podido generar partidos</h1>';
+            echo '<h1>No se han podido generar partidos</h1>';
 
         }
     }

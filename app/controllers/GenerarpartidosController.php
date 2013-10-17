@@ -12,6 +12,8 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
             "order" => "id"
         ));
 
+
+
         if ($equipos) {
             //Eliminamos de la base de datos los partidos jugados por esos equipos
             foreach ($equipos as $equipo) {
@@ -59,6 +61,11 @@ class GenerarpartidosController extends \Phalcon\Mvc\Controller
             //Tras haber asignado todos los partidos, pasamos a actualizar los datos en Solr
             $solr = new Solr('partidos');
             $solr->dataImport(true);
+
+            echo '<h1>Partidos generados</h1>';
+        } else {
+            echo '<h1>No se ha podido generar partidos</h1>';
+
         }
     }
 }
